@@ -1,0 +1,13 @@
+<!-- pages/profile/profile.wxml -->
+<view class="container">
+  <block wx:if="{{ isLogin }}">
+    <view>欢迎业主：{{userInfo.email}}</view>
+  </block>
+  <block wx:else>
+    <view>请先登录</view>
+    <button bindtap="login" class="btn-login">登录</button>
+  </block>
+</view>
+
+<navigator url="/pages/orderController/orderController"><view class="a">订单管理</view></navigator>
+<view bindtap="logout" class="a">退出</view>

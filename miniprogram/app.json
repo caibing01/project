@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/server/server",
+    "pages/repair/repair",
+    "pages/my/my",
+    "pages/register/register",
+    "pages/login/login",
+    "pages/admin/admin",
+    "pages/active/active",
+    "pages/info/info",
+    "pages/resetpassword/resetpassword",
+    "pages/property_staff/property_staff",
+    "pages/order/order",
+    "pages/orderController/orderController",
+    "pages/comment/comment",
+    "pages/active01/active01",
+    "pages/news01/news01"
+  ],
+  "window": {
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#521314",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "物业管理"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "icon/index.png",
+      "selectedIconPath": "icon/index.png"
+    },{
+      "pagePath": "pages/server/server",
+      "text": "服务",
+      "iconPath": "icon/server.png",
+      "selectedIconPath": "icon/server.png"
+    },{
+      "pagePath": "pages/repair/repair",
+      "text": "报修",
+      "iconPath": "icon/repair.png",
+      "selectedIconPath": "icon/repair.png"
+    },{
+      "pagePath": "pages/my/my",
+      "text": "我的",
+      "iconPath": "icon/my.png",
+      "selectedIconPath": "icon/my.png"
+    }]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

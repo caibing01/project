@@ -1,0 +1,16 @@
+<!-- pages/login/login.wxml -->
+<view class="container">
+  <form bindsubmit="login" class="form">
+    <view class="form-item">
+      <text class="label">邮箱：</text>
+      <input type="text" name="email" placeholder="请输入邮箱" />
+    </view>
+    <view class="form-item">
+      <text class="label">密码：</text>
+      <input type="password" name="password" placeholder="请输入密码" />
+    </view>
+    <button form-type="submit" class="btn-login">登录</button>
+  </form>
+</view>
+<navigator url="/pages/register/register"><view style="height: 200rpx;">没有账号，注册</view></navigator>
+<navigator url="/pages/resetpassword/resetpassword"><view>已有账号，重置密码</view></navigator>

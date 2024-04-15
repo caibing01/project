@@ -1,0 +1,21 @@
+<!-- pages/propertyStaffList/propertyStaffList.wxml -->
+
+<view class="container">
+  <view class="title">物业人员信息</view>
+  <view class="table">
+    <view class="row">
+      <view class="cell header">姓名</view>
+      <view class="cell header">电话</view>
+      <view class="cell header">地址</view>
+      <view class="cell header">邮件</view>
+    </view>
+    <block wx:for="{{ propertyStaffList }}" wx:key="id">
+      <view class="row">
+        <view class="cell">{{ item.name }}</view>
+        <view class="cell">{{ item.phone }}</view>
+        <view class="cell">{{ item.address }}</view>
+        <view class="cell">{{ item.email }}</view>
+      </view>
+    </block>
+  </view>
+</view>

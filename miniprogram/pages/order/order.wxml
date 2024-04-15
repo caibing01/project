@@ -1,0 +1,27 @@
+<!-- pages/appointment/appointment.wxml -->
+
+<view class="container">
+  <view class="form-group">
+    <picker mode="selector" range="{{staffs}}" bindchange="bindStaffChange">
+      <view class="picker">
+        <text>选择物业人员</text>
+        <text>a{{selectedStaff}}</text>
+      </view>
+    </picker>
+  </view>
+  <view class="form-group">
+    <input type="text" placeholder="类目" bindinput="bindCategoryInput" />
+  </view>
+  <view class="form-group">
+    <picker mode="date" bindchange="bindDateChange">
+      <view class="picker">
+        <text>选择日期</text>
+        <text>a{{selectedDate}}</text>
+      </view>
+    </picker>
+  </view>
+  <view class="form-group">
+    <button bindtap="submitOrder">提交预约</button>
+  </view>
+  <view bindtap="back">返回</view>
+</view>

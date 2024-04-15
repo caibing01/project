@@ -1,0 +1,10 @@
+<!-- pages/home/home.wxml -->
+
+<view class="server-container">
+  <image src="https://www.jiangui.xyz/img/server.png" class="server-img"></image>
+</view>
+<scroll-view scroll-x class="bar" enable-flex>
+  <view wx:for="{{menuItems}}" wx:key="url" class="item" bindtap="onItemClick" data-url="{{item.url}}">
+    <text class="item-text">{{item.name}}</text>
+  </view>
+</scroll-view>

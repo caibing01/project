@@ -1,0 +1,18 @@
+<!-- pages/comments/comments.wxml -->
+<view class="container">
+    <view class="input-container">
+        <!-- 输入评论内容 -->
+        <input placeholder="输入评论内容" bindinput="inputComment" />
+        <!-- 选择物业人员 -->
+        <picker mode="selector" bindchange="selectPropertyStaff" value="{{ selectedPropertyStaffIndex }}" range="{{ propertyStaffs }}">
+            <view>选择物业人员：{{ propertyStaffs[selectedPropertyStaffIndex] }}</view>
+        </picker>
+        <!-- 提交按钮 -->
+        <button bindtap="submitComment">提交评论</button>
+    </view>
+
+    <!-- 显示评论列表 -->
+    <view wx:for="{{ comments }}" wx:key="id">
+        <text>{{ item.username }}: {{ item.staff }} --- {{ item.comment }} [{{ item.submission_time }}]</text>
+    </view>
+</view>

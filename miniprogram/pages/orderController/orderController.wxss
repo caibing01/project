@@ -1,0 +1,34 @@
+/* order.wxss */
+
+.container {
+  padding: 20rpx;
+}
+
+.order-list {
+  margin-bottom: 20rpx;
+}
+
+.order-item {
+  padding: 10rpx;
+  border: 1rpx solid #ccc;
+  margin-bottom: 10rpx;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  width: 80%;
+  background-color: #fff;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
