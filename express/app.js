@@ -12,6 +12,7 @@ const propertyStaffsRouter = require('./routes/propertyStaffs');
 const orderRouter = require('./routes/order');
 const orderControllerRouter = require('./routes/orderController');
 const commentsRouter = require('./routes/comments');
+const adminRouter = require('./routes/admin'); 
 
 const app = express();
 app.use(cors());
@@ -36,8 +37,11 @@ app.use('/order', orderRouter);
 app.use('/api/orders', orderControllerRouter);
 // 使用评论路由模块
 app.use('/comments', commentsRouter);
-//设置静态文件目录，使Express能够提供静态文件
-app.use(express.static('public'));
+// 静态文件
+app.use(express.static(path.join(__dirname, 'public')));
+
+// 将 admin 路由添加到 Express 应用中
+app.use('/admin', adminRouter);
 
 
 // 启动服务器
