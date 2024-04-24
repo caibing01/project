@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const registerRoutes = require('./routes/register');
+const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 const resetPasswordRouter = require('./routes/resetPasswordRouter');
 const propertyStaffListRouter = require('./routes/propertyStaffList');
@@ -12,7 +13,9 @@ const propertyStaffsRouter = require('./routes/propertyStaffs');
 const orderRouter = require('./routes/order');
 const orderControllerRouter = require('./routes/orderController');
 const commentsRouter = require('./routes/comments');
+
 const adminRouter = require('./routes/admin'); 
+const adminUsersRouter = require('./routes/admin-users');
 
 const app = express();
 app.use(cors());
@@ -27,6 +30,8 @@ app.use('/register', registerRoutes);
 app.use('/login', loginRouter);
 // 使用重置密码路由
 app.use('/reset-password', resetPasswordRouter);
+// 使用 users 路由
+app.use('/users', usersRouter);
 // 使用物业人员信息路由
 app.use('/propertyStaffList', propertyStaffListRouter);
 // 使用物业人员名单路由
@@ -42,7 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 将 admin 路由添加到 Express 应用中
 app.use('/admin', adminRouter);
-
+app.use('/admin/users', adminUsersRouter);
 
 // 启动服务器
 const PORT = process.env.PORT || 3000;

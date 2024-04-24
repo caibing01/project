@@ -6,8 +6,6 @@
     "pages/my/my",
     "pages/register/register",
     "pages/login/login",
-    "pages/admin/admin",
-    "pages/active/active",
     "pages/info/info",
     "pages/resetpassword/resetpassword",
     "pages/property_staff/property_staff",
@@ -15,7 +13,15 @@
     "pages/orderController/orderController",
     "pages/comment/comment",
     "pages/active01/active01",
-    "pages/news01/news01"
+    "pages/active02/active02",
+    "pages/active03/active03",
+    "pages/active04/active04",
+    "pages/active05/active05",
+    "pages/news01/news01",
+    "pages/news02/news02",
+    "pages/news03/news03",
+    "pages/news04/news04",
+    "pages/news05/news05"
   ],
   "window": {
     "enablePullDownRefresh": true,

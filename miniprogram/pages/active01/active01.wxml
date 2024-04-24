@@ -1,14 +1,4 @@
-<scroll-view scroll-y enable-flex>
-	<view style="text-align: center;font-size: 80rpx;font-weight: bold;">物业活动</view>
-	<view style="height: 15rpx;background-color: black;margin-top: 20rpx;"></view>
-	<image src="https://www.jiangui.xyz/img/active_wenan.png" style="width: 100%; height: 600rpx;margin-top: 50rpx;"></image>
-	<view style="height: 15rpx;background-color: black;margin-top: 20rpx;margin-bottom: 20rpx;"></view>
-	<text space="emsp" style="height: 250rpx;line-height: 50rpx;font-size: 50rpx;">亲爱的业主们：
-	
-		大家好！
-
-	  2024年初，jiangui物业举办了物业活动，所有业主可到保安室领取日历一份。
-		jiangui物业服务中心
-
-XXXX年XX月XX日</text>
-</scroll-view>
+<!--pages/active02/active02.wxml-->
+<view class="text-style">新年特惠</view>
+<text space="emsp">
+	为反馈广大业主，经过管理员以及物业人员与广大业主的商讨决定，凡小区业主报修，均只需十元，通通十元</text>

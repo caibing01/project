@@ -20,4 +20,20 @@ Page({
       }
     })
   },
+  data: {
+    showLeft: false,
+    showRight: false
+  },
+  showLeftContent: function () {
+    this.setData({
+      showLeft: true,
+      showRight: false
+    });
+  },
+  showRightContent: function () {
+    this.setData({
+      showLeft: false,
+      showRight: true
+    });
+  }
 })

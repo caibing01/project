@@ -22,33 +22,56 @@
     <navigator url="/pages/info/info">
       <view class="item">业主信息</view>
     </navigator>
+  </scroll-view>
 </scroll-view>
-  <view class="server"><image src="https://www.jiangui.xyz/img/active.png" class="item-img"></image>活动</view>
-  <scroll-view scroll-y enable-flex class="news-bar">
-    <navigator url="/pages/active01/active01"><view class="active">1.第一个物业活动</view></navigator>
-    <navigator url="/pages/active01/active01"><view class="active">2.第二个物业活动</view></navigator>
-    <navigator url="/pages/active01/active01"><view class="active">3.第三个物业活动</view></navigator>
-    <navigator url="/pages/active01/active01"><view class="active">4.第四个物业活动</view></navigator>
-    <navigator url="/pages/active01/active01"><view class="active">5.第五个物业活动</view></navigator>
-    <navigator url="/pages/active01/active01"><view class="active">6.第六个物业活动</view></navigator>
-    <navigator url="/pages/active01/active01"><view class="active">7.第七个物业活动</view></navigator>
-    <navigator url="/pages/active01/active01"><view class="active">8.第八个物业活动</view></navigator>
-    <navigator url="/pages/active01/active01"><view class="active">9.第九个物业活动</view></navigator>
-    <navigator url="/pages/active01/active01"><view class="active">10.第十个物业活动</view></navigator>
-    <view class="active">更多活动获取中……</view>
-  </scroll-view> 
-  <view class="server"><image src="https://www.jiangui.xyz/img/news.png" class="item-img"></image>资讯</view>
-  <scroll-view scroll-y enable-flex class="news-bar">
-    <navigator url="/pages/news01/news01"><view class="news">1.第一个资讯</view></navigator>
-    <navigator url="/pages/news01/news01"><view class="news">2.第二个资讯</view></navigator>
-    <navigator url="/pages/news01/news01"><view class="news">3.第三个资讯</view></navigator>
-    <navigator url="/pages/news01/news01"><view class="news">4.第四个资讯</view></navigator>
-    <navigator url="/pages/news01/news01"><view class="news">5.第五个资讯</view></navigator>
-    <navigator url="/pages/news01/news01"><view class="news">6.第六个资讯</view></navigator>
-    <navigator url="/pages/news01/news01"><view class="news">7.第七个资讯</view></navigator>
-    <navigator url="/pages/news01/news01"><view class="news">8.第八个资讯</view></navigator>
-    <navigator url="/pages/news01/news01"><view class="news">9.第九个资讯</view></navigator>
-    <navigator url="/pages/news01/news01"><view class="news">10.第十个资讯</view></navigator>
-    <view class="news">更多资讯获取中……</view>
-  </scroll-view> 
+
+<view class="con">
+  <view class="left-title" bindtap="showLeftContent">
+    <image src="https://www.jiangui.xyz/img/active.png" class="item-img"></image>活动
+  </view>
+  <view class="right-title" bindtap="showRightContent">
+    <image src="https://www.jiangui.xyz/img/news.png" class="item-img"></image>资讯
+  </view>
+</view>
+
+<scroll-view scroll-y enable-flex>
+  <view wx:if="{{showLeft}}" class="content">
+    <navigator url="/pages/active01/active01">
+      <text>1.新年特惠</text>
+    </navigator>
+    <navigator url="/pages/active02/active02">
+      <text>2.新用户福利</text>
+    </navigator>
+    <navigator url="/pages/active03/active03">
+      <text>3.物业人员招募</text>
+    </navigator>
+    <navigator url="/pages/active04/active04">
+      <text>4.业主免费领口罩</text>
+    </navigator>
+    <navigator url="/pages/active05/active05">
+      <text>5.领鸡蛋</text>
+    </navigator>
+    <view>更多活动获取中……</view>
+  </view>
+</scroll-view>
+
+<scroll-view scroll-y enable-flex>
+  <view wx:if="{{showRight}}" class="content">
+    <navigator url="/pages/news01/news01">
+      <text>1.关于小区广告的整改</text>
+    </navigator>
+    <navigator url="/pages/news02/news02">
+      <text>2.关于小区的整改</text>
+    </navigator>
+    <navigator url="/pages/news03/news03">
+      <text>3.物业人员招募</text>
+    </navigator>
+    <navigator url="/pages/news04/news04">
+      <text>4.新年贺词</text>
+    </navigator>
+    <navigator url="/pages/news05/news05">
+      <text>5.喜迎新年</text>
+    </navigator>
+    <view>更多资讯获取中……</view>
+  </view>
 </scroll-view>

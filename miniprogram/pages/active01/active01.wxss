@@ -1,1 +1,5 @@
-/* pages/active01/active01.wxss */
+.text-style {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
