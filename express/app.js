@@ -16,6 +16,7 @@ const commentsRouter = require('./routes/comments');
 
 const adminRouter = require('./routes/admin'); 
 const adminUsersRouter = require('./routes/admin-users');
+const adminStaffRouter = require('./routes/admin-staff'); 
 
 const app = express();
 app.use(cors());
@@ -48,6 +49,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 将 admin 路由添加到 Express 应用中
 app.use('/admin', adminRouter);
 app.use('/admin/users', adminUsersRouter);
+// 将物业人员管理路由添加到 Express 应用中
+app.use('/admin', adminStaffRouter);
 
 // 启动服务器
 const PORT = process.env.PORT || 3000;

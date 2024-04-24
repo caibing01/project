@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>物业人员管理</title>
+  <!-- 引入Bootstrap样式 -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>物业人员管理</h1>
+    <!-- 添加按钮打开模态框 -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStaffModal">
+      新增物业人员
+    </button>
+
+    <!-- 新增物业人员模态框 -->
+    <div class="modal fade" id="addStaffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">新增物业人员信息</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- 模态框表单 -->
+          <div class="modal-body">
+            <form id="addStaffForm">
+              <div class="form-group">
+                <label for="name">姓名：</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">电话：</label>
+                <input type="text" class="form-control" id="phone" name="phone" required>
+              </div>
+              <div class="form-group">
+                <label for="email">邮箱：</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="address">地址：</label>
+                <input type="text" class="form-control" id="address" name="address" required>
+              </div>
+              <button type="submit" class="btn btn-primary">保存</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 编辑物业人员模态框 -->
+    <div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">编辑物业人员信息</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- 模态框表单 -->
+          <div class="modal-body">
+            <form id="editStaffForm">
+              <input type="hidden" id="editStaffId" name="id">
+              <div class="form-group">
+                <label for="editName">姓名：</label>
+                <input type="text" class="form-control" id="editName" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="editPhone">电话：</label>
+                <input type="text" class="form-control" id="editPhone" name="phone" required>
+              </div>
+              <div class="form-group">
+                <label for="editEmail">邮箱：</label>
+                <input type="email" class="form-control" id="editEmail" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="editAddress">地址：</label>
+                <input type="text" class="form-control" id="editAddress" name="address" required>
+              </div>
+              <button type="submit" class="btn btn-primary">保存</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="table mt-4" id="staffTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>姓名</th>
+          <th>电话</th>
+          <th>邮箱</th>
+          <th>地址</th>
+          <th>操作</th> <!-- 新添加的列 -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Staff data will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 引入Bootstrap JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // 页面加载时获取和渲染物业人员数据
+    fetchAndRenderStaffs();
+
+    // 获取所有物业人员数据并渲染表格
+    function fetchAndRenderStaffs() {
+      fetch('/admin/staffs')
+        .then(response => response.json())
+        .then(staffs => {
+          const staffTableBody = document.querySelector('#staffTable tbody');
+          staffTableBody.innerHTML = '';
+          staffs.forEach(staff => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${staff.id}</td>
+              <td>${staff.name}</td>
+              <td>${staff.phone}</td>
+              <td>${staff.email}</td>
+              <td>${staff.address}</td>
+              <td>
+                <button onclick="editStaff(${staff.id})" class="btn btn-primary" data-toggle="modal" data-target="#editStaffModal">编辑</button>
+                <button onclick="deleteStaff(${staff.id})" class="btn btn-danger">删除</button>
+              </td>
+            `;
+            staffTableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error fetching staffs:', error));
+    }
+
+    // 删除物业人员
+    function deleteStaff(staffId) {
+      fetch(`/admin/staffs/${staffId}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          // 重新加载页面以反映更改
+          fetchAndRenderStaffs();
+        } else {
+          console.error('Failed to delete staff');
+        }
+      })
+      .catch(error => console.error('Error deleting staff:', error));
+    }
+
+    // 编辑物业人员信息
+    function editStaff(staffId) {
+      // 通过物业人员ID获取物业人员信息
+      fetch(`/admin/staffs/${staffId}`)
+        .then(response => response.json())
+        .then(staff => {
+          // 将物业人员信息填充到编辑模态框中的表单中
+          document.getElementById('editStaffId').value = staff.id;
+          document.getElementById('editName').value = staff.name;
+          document.getElementById('editPhone').value = staff.phone;
+          document.getElementById('editEmail').value = staff.email;
+          document.getElementById('editAddress').value = staff.address;
+        })
+        .catch(error => console.error('Error fetching staff:', error));
+    }
+
+    // 提交表单以修改物业人员信息
+    document.getElementById('editStaffForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const staffId = document.getElementById('editStaffId').value;
+      const name = document.getElementById('editName').value;
+      const phone = document.getElementById('editPhone').value;
+      const email = document.getElementById('editEmail').value;
+      const address = document.getElementById('editAddress').value;
+      const data = { id: staffId, name: name, phone: phone, email: email, address: address };
+      fetch(`/admin/staffs/${staffId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          // 重新加载页面以反映更改
+          fetchAndRenderStaffs();
+          // 关闭模态框
+          $('#editStaffModal').modal('hide');
+          // 重置表单
+          document.getElementById('editStaffForm').reset();
+        } else {
+          console.error('Failed to update staff');
+        }
+      })
+      .catch(error => console.error('Error updating staff:', error));
+    });
+
+    // 提交表单以添加新的物业人员
+    document.getElementById('addStaffForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('email').value;
+      const address = document.getElementById('address').value;
+      const data = { name: name, phone: phone, email: email, address: address };
+      fetch('/admin/staffs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          // 重新加载页面以反映更改
+          fetchAndRenderStaffs();
+          // 关闭模态框
+          $('#addStaffModal').modal('hide');
+          // 重置表单
+          document.getElementById('addStaffForm').reset();
+        } else {
+          console.error('Failed to add staff');
+        }
+      })
+      .catch(error => console.error('Error adding staff:', error));
+    });
+  </script>
+</body>
+</html>
