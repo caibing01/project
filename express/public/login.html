@@ -2,9 +2,58 @@
 <html lang="en">
 <head>
     <style>
-        body{
-            position: absolute;
-            margin-top: auto;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
     <meta charset="UTF-8">
@@ -12,13 +61,15 @@
     <title>管理员登录</title>
 </head>
 <body>
-    <h1>管理员登录页面</h1>
-    <form action="/admin/login" method="POST">
-        <label for="username">账户:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">密码:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <button type="submit">登录</button>
-    </form>
+    <div class="container">
+        <h1>管理员登录页面</h1>
+        <form action="/admin/login" method="POST">
+            <label for="username">账户:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="submit">登录</button>
+        </form>
+    </div>
 </body>
 </html>

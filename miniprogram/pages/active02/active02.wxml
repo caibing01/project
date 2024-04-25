@@ -1,2 +1,2 @@
-<!--pages/active02/active02.wxml-->
-<text>pages/active02/active02.wxml</text>
+<view class="text-style">新用户福利</view>
+<view class="line"></view>

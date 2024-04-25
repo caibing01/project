@@ -1,4 +1,8 @@
-<!--pages/active02/active02.wxml-->
 <view class="text-style">新年特惠</view>
-<text space="emsp">
-	为反馈广大业主，经过管理员以及物业人员与广大业主的商讨决定，凡小区业主报修，均只需十元，通通十元</text>
+<view class="line"></view>
+<text space="emsp">  为反馈广大业主，经过管理员以及物业人员与广大业主的商讨决定，凡小区业主报修，均只需十元，通通十元。
+  欢愉物业欢迎您！
+  宇宙历时三万五千年。
+  致谢
+  结语
+</text>
