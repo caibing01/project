@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>评论管理</title>
+  <!-- 引入Bootstrap样式 -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>评论管理</h1>
+
+    <table class="table mt-4" id="commentsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>用户名</th>
+          <th>员工</th>
+          <th>评论</th>
+          <th>提交时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Comments data will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 引入Bootstrap JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // 页面加载时获取和渲染评论数据
+    fetchAndRenderComments();
+
+    // 获取所有评论数据并渲染表格
+    function fetchAndRenderComments() {
+      fetch('/admin/comments')
+        .then(response => response.json())
+        .then(comments => {
+          const commentsTableBody = document.querySelector('#commentsTable tbody');
+          commentsTableBody.innerHTML = '';
+          comments.forEach(comment => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${comment.id}</td>
+              <td>${comment.username}</td>
+              <td>${comment.staff}</td>
+              <td>${comment.comment}</td>
+              <td>${comment.submission_time}</td>
+              <td>
+                <button onclick="deleteComment(${comment.id})" class="btn btn-danger">删除</button>
+              </td>
+            `;
+            commentsTableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error fetching comments:', error));
+    }
+
+    // 删除评论
+    function deleteComment(commentId) {
+      fetch(`/admin/comments/${commentId}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          // 重新加载页面以反映更改
+          fetchAndRenderComments();
+        } else {
+          console.error('Failed to delete comment');
+        }
+      })
+      .catch(error => console.error('Error deleting comment:', error));
+    }
+  </script>
+</body>
+</html>

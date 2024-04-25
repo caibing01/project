@@ -1,112 +1,93 @@
-// pages/order/order.js
 Page({
   data: {
+    username: '',
+    datetime: '',
     category: '',
-    selectedDate: '',
-    staffs: [], // 物业人员名单列表
-    selectedStaff: '', // 已选择的物业人员
+    staff: null,
+    address: '',
+    staffList: [],
+    staffIndex: 0,
   },
-
-  onLoad: function() {
-    // 获取物业人员名单
-    this.getPropertyStaffs();
-  },
-
-  getPropertyStaffs: function() {
-    wx.request({
-      url: 'http://localhost:3000/propertyStaffs',
-      success: (res) => {
-        const staffs = res.data;
-        this.setData({
-          staffs: staffs,
-          selectedStaff: staffs[0] // 默认选择第一个物业人员
-        });
-      },
-      fail: (err) => {
-        console.error('Failed to get property staffs:', err);
-      }
-    });
-  },
-
-  bindStaffChange: function(e) {
-    const index = e.detail.value;
-    const selectedStaff = this.data.staffs[index];
-    this.setData({
-      selectedStaff: selectedStaff
-    });
-  },
-
-  bindCategoryInput: function(e) {
-    const category = e.detail.value;
-    this.setData({
-      category: category
-    });
-  },
-
-  bindDateChange: function(e) {
-    const selectedDate = e.detail.value;
-    this.setData({
-      selectedDate: selectedDate
-    });
-  },
-
-  submitOrder: function() {
-    // 获取当前用户信息（邮箱作为用户名）
+  onLoad() {
     const userInfo = wx.getStorageSync('userInfo');
-    if (!userInfo) {
-      wx.showToast({
-        title: '用户信息缺失，请重新登录',
-        icon: 'none'
-      });
-      wx.navigateTo({
-        url: '/pages/login/login'
-      });
-      return;
+    if (userInfo) {
+      const username = userInfo.email;
+      this.setData({ username });
+    } else {
     }
-
-    // 从页面获取用户选择的类目和日期
-    const { category, selectedDate, selectedStaff } = this.data;
-
-    // 校验用户输入是否合法
-    if (!category || !selectedDate || !selectedStaff) {
-      wx.showToast({
-        title: '请输入类目、日期和物业人员',
-        icon: 'none'
-      });
-      return;
-    }
-
-    // 构造订单信息
-    const orderInfo = {
-      username: userInfo.email, // 使用邮箱作为用户名
-      category: category,
-      datetime: selectedDate,
-      staff: selectedStaff
-    };
-
-    // 发起请求提交订单信息
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    this.setData({ datetime: `${year}-${month}-${day}` });
     wx.request({
-      url: 'http://localhost:3000/order/submit',
-      method: 'POST',
-      data: orderInfo,
+      url: 'http://localhost:3000/staff',
       success: (res) => {
-        wx.showToast({
-          title: '订单提交成功',
-          icon: 'success'
-        });
+        const staffList = res.data.map(staff => staff.name);
+        this.setData({ staffList });
       },
       fail: (err) => {
-        console.error('Failed to submit order:', err);
+        console.error('Error fetching property staffs:', err);
         wx.showToast({
-          title: '订单提交失败，请稍后重试',
+          title: '获取物业人员列表失败',
           icon: 'none'
         });
       }
     });
   },
-  back(){
-    wx.switchTab({
-      url: '/pages/index/index',
-    })
+  bindDateTimeChange(e) {
+    this.setData({ datetime: e.detail.value });
+  },
+  inputCategory(e) {
+    this.setData({ category: e.detail.value });
+  },
+  inputAddress(e) {
+    this.setData({ address: e.detail.value });
+  },
+  bindStaffChange(e) {
+    this.setData({ staffIndex: e.detail.value });
+  },
+  submitOrder(e) {
+    const { username, datetime, category, staffList, staffIndex, address } = this.data;
+    const staff = staffList[staffIndex];
+    if (!username || !datetime || !category || !staff || !address) {
+      wx.showToast({
+        title: '请填写完整订单信息',
+        icon: 'none'
+      });
+      return;
+    }
+    wx.request({
+      url: 'http://localhost:3000/orders',
+      method: 'POST',
+      data: {
+        username,
+        datetime,
+        category,
+        staff,
+        address
+      },
+      success: (res) => {
+        wx.showToast({
+          title: '订单创建成功',
+          icon: 'success',
+          duration: 2000,
+          complete: () => {
+            this.setData({
+              category: '',
+              staff: null,
+              address: ''
+            });
+          }
+        });
+      },
+      fail: (err) => {
+        console.error('Error creating order:', err);
+        wx.showToast({
+          title: '订单创建失败，请重试',
+          icon: 'none'
+        });
+      }
+    });
   }
 });

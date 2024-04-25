@@ -1,11 +1,8 @@
-// pages/orderList/orderList.js
-
 Page({
   data: {
     userInfo: null,
     orders: []
   },
-
   onLoad: function () {
     const userInfo = wx.getStorageSync('userInfo');
     if (userInfo) {
@@ -17,7 +14,6 @@ Page({
       });
     }
   },
-
   getOrders: function () {
     wx.request({
       url: 'http://localhost:3000/api/orders',
@@ -33,7 +29,6 @@ Page({
       }
     });
   },
-
   completeOrder: function (e) {
     const orderId = e.currentTarget.dataset.id;
     wx.showModal({
@@ -72,7 +67,6 @@ Page({
       }
     });
   },
-
   deleteOrder: function (e) {
     const orderId = e.currentTarget.dataset.id;
     wx.showModal({
@@ -109,13 +103,6 @@ Page({
           });
         }
       }
-    });
-  },
-
-  editOrder: function (e) {
-    const orderId = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '/pages/edit-order/edit-order?id=' + orderId,
     });
   }
 });

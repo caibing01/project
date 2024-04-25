@@ -1,1 +1,47 @@
-/* pages/comment/comment.wxss */
+.con {
+  padding: 20rpx;
+}
+.input-con {
+  margin-bottom: 20rpx;
+}
+.issue {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+.input {
+  width: 100%;
+  padding: 10rpx;
+  margin-bottom: 10rpx;
+  border: 1rpx solid #ccc;
+  border-radius: 5rpx;
+}
+.picker {
+  width: 100%;
+  padding: 10rpx;
+  margin-bottom: 10rpx;
+  border: 1rpx solid #ccc;
+  border-radius: 5rpx;
+}
+.chack {
+  font-size: 28rpx;
+}
+.button {
+  width: 100%;
+  padding: 10rpx;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 10rpx;
+  cursor: pointer;
+  outline: none;
+}
+.button:hover {
+  background-color: #45a049;
+}
+.comments {
+  margin-bottom: 10rpx;
+}
+.text {
+  font-size: 28rpx;
+}

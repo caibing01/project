@@ -1,4 +1,3 @@
-// pages/resetPassword/resetPassword.js
 Page({
   data: {
     email: '',
@@ -18,6 +17,21 @@ Page({
   resetPassword: function() {
     const email = this.data.email;
     const password = this.data.password;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!email || !password) {
+      wx.showToast({
+        title: '请输入邮箱和新密码',
+        icon: 'none'
+      });
+      return;
+    }
+    if (!passwordRegex.test(password)) {
+      wx.showToast({
+        title: '密码至少包含一个字母和一个数字，且至少8个字符',
+        icon: 'none'
+      });
+      return;
+    }
     if (!email || !password) {
       wx.showToast({
         title: '请输入邮箱和新密码',

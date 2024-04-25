@@ -1,10 +1,8 @@
-// pages/profile/profile.js
 Page({
   data: {
     isLogin: false,
     userInfo: null
   },
-
   onLoad: function () {
     const userInfo = wx.getStorageSync('userInfo');
     if (userInfo) {
@@ -14,7 +12,6 @@ Page({
       });
     }
   },
-
   login: function () {
     wx.navigateTo({
       url: '/pages/login/login'

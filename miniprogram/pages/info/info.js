@@ -1,5 +1,3 @@
-// index.js
-
 Page({
   data: {
     userInfo: {}

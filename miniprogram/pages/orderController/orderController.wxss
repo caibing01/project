@@ -1,19 +1,14 @@
-/* order.wxss */
-
 .container {
   padding: 20rpx;
 }
-
 .order-list {
   margin-bottom: 20rpx;
 }
-
 .order-item {
   padding: 10rpx;
   border: 1rpx solid #ccc;
   margin-bottom: 10rpx;
 }
-
 .modal {
   position: fixed;
   top: 0;
@@ -25,7 +20,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .modal-content {
   width: 80%;
   background-color: #fff;

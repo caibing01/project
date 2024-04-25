@@ -1,4 +1,3 @@
-// index.js
 Page({
 	freeTell:function(){
     wx.makePhoneCall({

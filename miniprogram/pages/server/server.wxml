@@ -1,5 +1,3 @@
-<!-- pages/home/home.wxml -->
-
 <view class="server-container">
   <image src="https://www.jiangui.xyz/img/server.png" class="server-img"></image>
 </view>

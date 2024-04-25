@@ -1,20 +1,22 @@
-<!-- index.wxml -->
-
-<view class="user-info">
-  <view class="info-item">
-    <view class="info-label">用户名：</view>
-    <view class="info-value">{{userInfo.username}}</view>
-  </view>
-  <view class="info-item">
-    <view class="info-label">手机号码：</view>
-    <view class="info-value">{{userInfo.phoneNumber}}</view>
-  </view>
-  <view class="info-item">
-    <view class="info-label">邮箱：</view>
-    <view class="info-value">{{userInfo.email}}</view>
-  </view>
-  <view class="info-item">
-    <view class="info-label">余额：</view>
-    <view class="info-value">{{userInfo.balance}}</view>
+<view class="con">
+  <view class="user-info">
+    <view class="title">业主信息</view>
+    <view class="info-item">
+      <view class="info-label">用户名：</view>
+      <view class="info-value">{{userInfo.username}}</view>
+    </view>
+    <view class="info-item">
+      <view class="info-label">手机号码：</view>
+      <view class="info-value">{{userInfo.phoneNumber}}</view>
+    </view>
+    <view class="info-item">
+      <view class="info-label">邮箱：</view>
+      <view class="info-value">{{userInfo.email}}</view>
+    </view>
+    <view class="info-item">
+      <view class="info-label">余额：</view>
+      <view class="info-value">{{userInfo.balance}}元</view>
+    </view>
+    <button class="button">余额充值</button>
   </view>
 </view>

@@ -1,13 +1,17 @@
-<!-- pages/profile/profile.wxml -->
-<view class="container">
-  <block wx:if="{{ isLogin }}">
-    <view>欢迎业主：{{userInfo.email}}</view>
+<view class="con">
+  <image src="https://www.jiangui.xyz/img/background.jpg" class="img">图片</image>
+  <block wx:if="{{ isLogin }}" class="block">
+    <view class="line"></view>
+    <view class="wecom">欢迎业主：</view>
+    <view class="info">{{userInfo.email}}</view>
+    <view class="line"></view>
   </block>
-  <block wx:else>
-    <view>请先登录</view>
+  <block wx:else class="else">
+    <view class="line"></view>
+    <view class="login">请先登录</view>
     <button bindtap="login" class="btn-login">登录</button>
+    <view class="line"></view>
   </block>
 </view>
-
-<navigator url="/pages/orderController/orderController"><view class="a">订单管理</view></navigator>
-<view bindtap="logout" class="a">退出</view>
+<navigator url="/pages/orderController/orderController" class="nav"><view class="order">订单管理</view></navigator>
+<button bindtap="logout" class="logout" type="primary">退出登录</button>

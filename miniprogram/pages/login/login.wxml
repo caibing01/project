@@ -1,5 +1,4 @@
-<!-- pages/login/login.wxml -->
-<view class="container">
+<view class="con">
   <form bindsubmit="login" class="form">
     <view class="form-item">
       <text class="label">邮箱：</text>
@@ -12,5 +11,5 @@
     <button form-type="submit" class="btn-login">登录</button>
   </form>
 </view>
-<navigator url="/pages/register/register"><view style="height: 200rpx;">没有账号，注册</view></navigator>
-<navigator url="/pages/resetpassword/resetpassword"><view>已有账号，重置密码</view></navigator>
+<navigator url="/pages/register/register"><view class="regiest">没有账号，注册</view></navigator>
+<navigator url="/pages/resetpassword/resetpassword"><view class="repass">已有账号，重置密码</view></navigator>

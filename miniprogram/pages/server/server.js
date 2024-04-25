@@ -1,5 +1,3 @@
-// pages/home/home.js
-
 Page({
   data: {
     menuItems: [
@@ -10,7 +8,6 @@ Page({
       { name: '业主信息', url: '/pages/info/info' }
     ]
   },
-
   onItemClick: function(e) {
     const url = e.currentTarget.dataset.url;
     wx.navigateTo({ url });

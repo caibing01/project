@@ -1,5 +1,4 @@
-<!-- pages/register/register.wxml -->
-<view class="container">
+<view class="con">
   <form bindsubmit="register" class="form">
     <view class="form-item">
       <text class="label">用户名：</text>

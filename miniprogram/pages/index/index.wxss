@@ -38,8 +38,10 @@ swiper{
 .news{
   margin-top: 15rpx;
 }
-
 .con {
+  position: fixed;
+  bottom: 0;
+  width: 95%;
   display: flex; 
   justify-content: space-between; 
   background-color: #f0f0f0; 
@@ -49,7 +51,6 @@ swiper{
   margin-bottom: 20px; 
   margin-top: 30px;
 }
-
 .left-title, .right-title {
   flex: 1; 
   text-align: center; 
@@ -60,19 +61,16 @@ swiper{
   cursor: pointer; 
   transition: all 0.3s ease; 
 }
-
 .item-img {
   width: 20px; 
   height: 20px; 
   margin-right: 5px; 
   vertical-align: middle; 
 }
-
 .left-title:hover, .right-title:hover {
   background-color: #f0f0f0; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
 }
-
 .content {
   width: 100%; 
   padding: 20px; 

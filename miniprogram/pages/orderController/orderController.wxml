@@ -1,5 +1,3 @@
-<!-- pages/orderList/orderList.wxml -->
-
 <view class="container">
   <view class="order-list">
     <block wx:for="{{ orders }}" wx:key="id">

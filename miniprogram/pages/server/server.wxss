@@ -1,18 +1,14 @@
-/* pages/home/home.wxss */
-
 .server-container {
   display: flex;
   align-items: center;
   margin: 10px;
 }
-
 .item {
   margin: 10px;
   padding: 5px 10px;
   border-radius: 5px;
   background-color: #f0f0f0;
 }
-
 .item-text {
   font-size: 16px;
   font-weight: bold;

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>订单管理</title>
+  <!-- 引入Bootstrap样式 -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>订单管理</h1>
+
+    <table class="table mt-4" id="ordersTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>用户名</th>
+          <th>日期时间</th>
+          <th>类别</th>
+          <th>员工</th>
+          <th>提交时间</th>
+          <th>是否完成</th>
+          <th>地址</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Orders data will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 引入Bootstrap JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // 页面加载时获取和渲染订单数据
+    fetchAndRenderOrders();
+
+    // 获取所有订单数据并渲染表格
+    function fetchAndRenderOrders() {
+      fetch('/admin/orders')
+        .then(response => response.json())
+        .then(orders => {
+          const ordersTableBody = document.querySelector('#ordersTable tbody');
+          ordersTableBody.innerHTML = '';
+          orders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${order.id}</td>
+              <td>${order.username}</td>
+              <td>${order.datetime}</td>
+              <td>${order.category}</td>
+              <td>${order.staff}</td>
+              <td>${order.submission_time}</td>
+              <td>${order.completed}</td>
+              <td>${order.address}</td>
+              <td>
+                <button onclick="deleteOrder(${order.id})" class="btn btn-danger">删除</button>
+                <button onclick="editOrder(${order.id})" class="btn btn-primary">编辑</button>
+              </td>
+            `;
+            ordersTableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error fetching orders:', error));
+    }
+
+    // 删除订单
+    function deleteOrder(orderId) {
+      fetch(`/admin/orders/${orderId}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          // 重新加载页面以反映更改
+          fetchAndRenderOrders();
+        } else {
+          console.error('Failed to delete order');
+        }
+      })
+      .catch(error => console.error('Error deleting order:', error));
+    }
+
+    // 编辑订单
+    function editOrder(orderId) {
+      // 获取员工列表
+      fetch('/admin/staff')
+        .then(response => response.json())
+        .then(staffList => {
+          // 构建员工列表的下拉选项
+          const staffOptions = staffList.map(staff => `<option value="${staff.name}">${staff.name}</option>`).join('');
+
+          fetch(`/admin/orders/${orderId}`)
+            .then(response => response.json())
+            .then(order => {
+              // 构建编辑模态框的表单
+              const editForm = document.createElement('form');
+              editForm.innerHTML = `
+                <div class="form-group">
+                  <label for="editCategory">类别：</label>
+                  <input type="text" class="form-control" id="editCategory" name="category" value="${order.category}">
+                </div>
+                <div class="form-group">
+                  <label for="editStaff">员工：</label>
+                  <select class="form-control" id="editStaff" name="staff">
+                    ${staffOptions}
+                  </select>
+                </div>
+                <button type="button" onclick="updateOrder(${orderId})" class="btn btn-primary">保存</button>
+              `;
+              
+              // 将编辑表单添加到模态框中
+              $('#editModalBody').html(editForm);
+
+              // 设置订单的员工字段默认值
+              document.getElementById('editStaff').value = order.staff;
+
+              // 打开编辑模态框
+              $('#editModal').modal('show');
+            })
+            .catch(error => console.error('Error fetching order:', error));
+        })
+        .catch(error => console.error('Error fetching staff:', error));
+    }
+
+    // 更新订单
+    function updateOrder(orderId) {
+      const category = document.getElementById('editCategory').value;
+      const staff = document.getElementById('editStaff').value;
+
+      fetch(`/admin/orders/${orderId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ category, staff })
+      })
+      .then(response => {
+        if (response.ok) {
+          // 重新加载页面以反映更改
+          fetchAndRenderOrders();
+          // 关闭模态框
+          $('#editModal').modal('hide');
+        } else {
+          console.error('Failed to update order');
+        }
+      })
+      .catch(error => console.error('Error updating order:', error));
+    }
+  </script>
+
+  <!-- 编辑订单模态框 -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">编辑订单信息</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="editModalBody">
+          <!-- 编辑表单将在此动态生成 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
