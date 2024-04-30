@@ -1,114 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户管理</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 50px;
-            color: #333;
-        }
-
-        table {
-            width: 80%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-
-        th {
-            background-color: #f0f0f0;
-            text-align: left;
-        }
-
-        td {
-            text-align: center;
-        }
-
-        button {
-            padding: 5px 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>用户管理</h1>
-    <table id="userTable">
-        <thead>
-            <tr>
-                <th>用户ID</th>
-                <th>用户名</th>
-                <th>用户邮箱</th>
-                <th>用户电话号码</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- 用户数据显示 -->
-        </tbody>
-    </table>
+    <div class="container">
+        <h1 class="text-center my-4">用户管理</h1>
 
+        <!-- 新建用户按钮 -->
+        <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#addUserModal">
+            新建用户
+        </button>
+
+        <!-- 用户表格 -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>用户ID</th>
+                    <th>用户名</th>
+                    <th>用户邮箱</th>
+                    <th>用户电话号码</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- 用户数据显示 -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 新建用户模态框 -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addUserModalLabel">新建用户</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addUserForm">
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" class="form-control" id="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" class="form-control" id="email" required>
+                            <div class="invalid-feedback">请输入有效的邮箱地址。</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">电话号码</label>
+                            <input type="text" class="form-control" id="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                            <small class="form-text text-muted">格式：xxx-xxx-xxxx。</small>
+                            <div class="invalid-feedback">请输入有效的电话号码，格式为 xxx-xxx-xxxx。</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 代码 -->
     <script>
-        // Fetch user data from server
-        fetch('/admin/users')
-            .then(response => response.json())
-            .then(users => {
-                const userTableBody = document.querySelector('#userTable tbody');
-                users.forEach(user => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${user.id}</td>
-                        <td>${user.username}</td>
-                        <td>${user.email}</td>
-                        <td>${user.phoneNumber}</td>
-                        <td>
-                            <button onclick="deleteUser(${user.id})">删除用户</button>
-                        </td>
-                    `;
-                    userTableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching users:', error));
+        // 获取用户数据并渲染表格
+        function fetchUsers() {
+            fetch('/admin/users')
+                .then(response => response.json())
+                .then(users => {
+                    const userTableBody = document.getElementById('userTableBody');
+                    userTableBody.innerHTML = '';
+                    users.forEach(user => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${user.id}</td>
+                            <td>${user.username}</td>
+                            <td>${user.email}</td>
+                            <td>${user.phoneNumber}</td>
+                            <td>
+                                <button onclick="confirmDelete(${user.id})" class="btn btn-danger">删除</button>
+                            </td>
+                        `;
+                        userTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching users:', error));
+        }
 
-        // Function to delete user
+        // 新建用户表单提交事件监听
+        document.getElementById('addUserForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (this.checkValidity()) {
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
+                const phoneNumber = document.getElementById('phoneNumber').value;
+                fetch('/admin/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, email, phoneNumber })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // 关闭模态框
+                            $('#addUserModal').modal('hide');
+                            // 清空表单
+                            document.getElementById('username').value = '';
+                            document.getElementById('email').value = '';
+                            document.getElementById('phoneNumber').value = '';
+                            // 重新加载用户列表
+                            fetchUsers();
+                        } else {
+                            console.error('Failed to create user');
+                        }
+                    })
+                    .catch(error => console.error('Error creating user:', error));
+            }
+        });
+
+        // 删除用户函数
         function deleteUser(userId) {
             fetch(`/admin/users/${userId}`, {
                 method: 'DELETE'
             })
                 .then(response => {
                     if (response.ok) {
-                        // Reload the page to reflect changes
-                        window.location.reload();
+                        // 重新加载用户列表
+                        fetchUsers();
                     } else {
                         console.error('Failed to delete user');
                     }
                 })
                 .catch(error => console.error('Error deleting user:', error));
         }
+
+        // 确认删除用户
+        function confirmDelete(userId) {
+            if (confirm('确认删除用户？')) {
+                deleteUser(userId);
+            }
+        }
+
+        // 页面加载时获取和渲染用户数据
+        fetchUsers();
     </script>
 </body>
 </html>

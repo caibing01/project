@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>订单管理</h1>
+    <h1 class="text-center my-4">订单管理</h1>
 
     <table class="table mt-4" id="ordersTable">
       <thead>
@@ -66,23 +66,41 @@
             ordersTableBody.appendChild(row);
           });
         })
-        .catch(error => console.error('Error fetching orders:', error));
+        .catch(error => console.error('获取订单时出错:', error));
     }
 
     // 删除订单
     function deleteOrder(orderId) {
-      fetch(`/admin/orders/${orderId}`, {
-        method: 'DELETE'
+      if (confirm("确定要删除该订单吗？")) {
+        fetch(`/admin/orders/${orderId}`, {
+          method: 'DELETE'
+        })
+        .then(response => {
+          if (response.ok) {
+            // 重新加载页面以反映更改
+            fetchAndRenderOrders();
+          } else {
+            console.error('删除订单失败');
+          }
+        })
+        .catch(error => console.error('删除订单时出错:', error));
+      }
+    }
+
+    // 标记订单为已完成
+    function markCompleted(orderId) {
+      fetch(`/admin/orders/${orderId}/markCompleted`, {
+        method: 'POST'
       })
       .then(response => {
         if (response.ok) {
           // 重新加载页面以反映更改
           fetchAndRenderOrders();
         } else {
-          console.error('Failed to delete order');
+          console.error('标记订单为已完成失败');
         }
       })
-      .catch(error => console.error('Error deleting order:', error));
+      .catch(error => console.error('标记订单为已完成时出错:', error));
     }
 
     // 编辑订单
@@ -110,9 +128,20 @@
                     ${staffOptions}
                   </select>
                 </div>
+                <div class="form-group">
+                  <label for="editDatetime">日期时间：</label>
+                  <input type="datetime-local" class="form-control" id="editDatetime" name="datetime" value="${order.datetime}">
+                </div>
+                <div class="form-group">
+                  <label for="editCompleted">是否完成：</label>
+                  <select class="form-control" id="editCompleted" name="completed">
+                    <option value="0" ${order.completed === 0 ? 'selected' : ''}>否</option>
+                    <option value="1" ${order.completed === 1 ? 'selected' : ''}>是</option>
+                  </select>
+                </div>
                 <button type="button" onclick="updateOrder(${orderId})" class="btn btn-primary">保存</button>
               `;
-              
+
               // 将编辑表单添加到模态框中
               $('#editModalBody').html(editForm);
 
@@ -122,22 +151,24 @@
               // 打开编辑模态框
               $('#editModal').modal('show');
             })
-            .catch(error => console.error('Error fetching order:', error));
+            .catch(error => console.error('获取订单时出错:', error));
         })
-        .catch(error => console.error('Error fetching staff:', error));
+        .catch(error => console.error('获取员工列表时出错:', error));
     }
 
     // 更新订单
     function updateOrder(orderId) {
       const category = document.getElementById('editCategory').value;
       const staff = document.getElementById('editStaff').value;
+      const datetime = document.getElementById('editDatetime').value;
+      const completed = document.getElementById('editCompleted').value;
 
       fetch(`/admin/orders/${orderId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ category, staff })
+        body: JSON.stringify({ category, staff, datetime, completed })
       })
       .then(response => {
         if (response.ok) {
@@ -146,10 +177,10 @@
           // 关闭模态框
           $('#editModal').modal('hide');
         } else {
-          console.error('Failed to update order');
+          console.error('更新订单失败');
         }
       })
-      .catch(error => console.error('Error updating order:', error));
+      .catch(error => console.error('更新订单时出错:', error));
     }
   </script>
 

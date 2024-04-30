@@ -1,4 +1,4 @@
-<view class="container">
+<view class="con">
   <view class="header">预约服务</view>
   <!-- 显示用户名 -->
   <view class="username">用户名：{{username}}</view>
@@ -25,4 +25,9 @@
     </view>
     <button class="button" formType="submit">提交</button>
   </form>
+</view>
+<view>
+  <text space="emsp">注：地址格式可选：
+    1.XxXXXX，表示几单元哪个房间号
+    2.X单元XXXX，表示几单元哪个房间号</text>
 </view>

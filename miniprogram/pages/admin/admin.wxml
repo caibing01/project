@@ -1,5 +1,0 @@
-<view class="input-group">
-      <text>密钥：</text>
-      <input type="text" name="text" placeholder="请输入后台分配密钥：" bindinput="usernameInput"/>
-    </view>
-		<button bindtap="login">登录</button>

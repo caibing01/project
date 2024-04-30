@@ -53,13 +53,20 @@
               <td>${comment.comment}</td>
               <td>${comment.submission_time}</td>
               <td>
-                <button onclick="deleteComment(${comment.id})" class="btn btn-danger">删除</button>
+                <button onclick="confirmDelete(${comment.id})" class="btn btn-danger">删除</button>
               </td>
             `;
             commentsTableBody.appendChild(row);
           });
         })
-        .catch(error => console.error('Error fetching comments:', error));
+        .catch(error => console.error('获取评论时出错:', error));
+    }
+
+    // 确认删除评论
+    function confirmDelete(commentId) {
+      if (confirm("确定要删除该评论吗？")) {
+        deleteComment(commentId);
+      }
     }
 
     // 删除评论
@@ -72,10 +79,10 @@
           // 重新加载页面以反映更改
           fetchAndRenderComments();
         } else {
-          console.error('Failed to delete comment');
+          console.error('删除评论失败');
         }
       })
-      .catch(error => console.error('Error deleting comment:', error));
+      .catch(error => console.error('删除评论时出错:', error));
     }
   </script>
 </body>

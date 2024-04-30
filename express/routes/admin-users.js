@@ -1,5 +1,3 @@
-// routes/admin-users.js
-
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
@@ -12,6 +10,19 @@ router.get('/', (req, res) => {
             res.status(500).json({ error: 'Error fetching users' });
         } else {
             res.json(results);
+        }
+    });
+});
+
+// 创建新用户
+router.post('/', (req, res) => {
+    const { username, email, phoneNumber } = req.body;
+    db.query('INSERT INTO users (username, email, phoneNumber) VALUES (?, ?, ?)', [username, email, phoneNumber], (err, result) => {
+        if (err) {
+            console.error('Error creating user:', err);
+            res.status(500).json({ error: 'Error creating user' });
+        } else {
+            res.status(201).json({ message: 'User created successfully' });
         }
     });
 });

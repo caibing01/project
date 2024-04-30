@@ -23,7 +23,6 @@ router.get('/:email', (req, res) => {
       username: user.username,
       phoneNumber: user.phoneNumber,
       email: user.email,
-      balance: user.balance // 假设数据库中有余额字段名为 balance
     });
   });
 });

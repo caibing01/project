@@ -18,7 +18,6 @@ const adminRouter = require('./routes/admin');
 const adminUsersRouter = require('./routes/admin-users');
 const adminStaffRouter = require('./routes/admin-staff'); 
 const adminOrdersRouter = require('./routes/admin-orders');
-const adminAdminsRouter = require('./routes/admin-admins');
 const adminCommentsRouter = require('./routes/admin-comments');
 
 const app = express();
@@ -57,8 +56,6 @@ app.use('/admin/users', adminUsersRouter);
 app.use('/admin', adminStaffRouter);
 // 使用订单管理路由
 app.use('/admin', adminOrdersRouter);
-// 使用管理员管理路由
-app.use('/admin', adminAdminsRouter);
 // 使用评论管理路由
 app.use('/admin', adminCommentsRouter); 
 

@@ -8,6 +8,6 @@
         <button bindtap="submitComment" class="button">提交评论</button>
     </view>
     <view wx:for="{{ comments }}" wx:key="id" class="commemts">
-        <text class="text">{{ item.username }}: {{ item.staff }} --- {{ item.comment }} [{{ item.submission_time }}]</text>
+        <text class="text">{{ item.username }}: {{ item.staff }} --- {{ item.comment }} : [{{ item.submission_time }}].</text>
     </view>
 </view>

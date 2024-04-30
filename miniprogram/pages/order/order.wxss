@@ -1,9 +1,9 @@
-.container {
+.con {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 1050rpx;
 }
 .header {
   font-size: 20px;

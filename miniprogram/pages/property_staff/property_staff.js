@@ -1,16 +1,10 @@
-// pages/propertyStaffList/propertyStaffList.js
-
 Page({
   data: {
-    propertyStaffList: [] // 保存从后端获取的物业人员信息
+    propertyStaffList: [] 
   },
-
-  // 页面加载时请求物业人员信息
   onLoad: function () {
     this.getPropertyStaffList();
   },
-
-  // 发送请求获取物业人员信息
   getPropertyStaffList: function () {
     wx.request({
       url: 'http://localhost:3000/propertyStaffList',

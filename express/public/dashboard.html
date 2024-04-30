@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理员仪表盘</title>
+    <title>管理员后台管理</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,40 +19,31 @@
             color: #333;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0 auto;
-            max-width: 600px;
-        }
-
-        li {
+        .list-group-item {
             background-color: #fff;
             margin-top: 10px;
             border-radius: 5px;
-        }
-
-        a {
-            display: block;
-            padding: 10px 20px;
-            text-decoration: none;
-            color: #333;
             transition: background-color 0.3s ease;
         }
 
-        a:hover {
+        .list-group-item:hover {
             background-color: #f0f0f0;
         }
     </style>
 </head>
 <body>
-    <h1>管理员仪表盘</h1>
-    <ul>
-        <li><a href="/users.html">用户管理</a></li>
-        <li><a href="/staff.html">物业人员管理</a></li>
-        <li><a href="/orders.html">订单管理</a></li>
-        <li><a href="/comments.html">评论管理</a></li>
-        <li><a href="/admins.html">查看管理员列表</a></li>
-    </ul>
+    <h1>管理员后台管理</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="list-group">
+                    <a href="/users.html" class="list-group-item list-group-item-action">用户管理</a>
+                    <a href="/staff.html" class="list-group-item list-group-item-action">物业人员管理</a>
+                    <a href="/orders.html" class="list-group-item list-group-item-action">订单管理</a>
+                    <a href="/comments.html" class="list-group-item list-group-item-action">评论管理</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
