@@ -10,6 +10,19 @@ Page({
       console.error('User email not found in local storage');
     }
   },
+  button:function(){
+    wx.showModal({
+      title: '功能还在开发中！',
+      content: '功能还在开发中！',
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定');
+        } else if (res.cancel) {
+          console.log('用户点击取消');
+        }
+      }
+    });
+  },
   getUserInfo: function(email) {
     wx.request({
       url: 'http://localhost:3000/users/' + email,

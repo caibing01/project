@@ -1,0 +1,70 @@
+<!-- views/login.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>物业人员登录</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="email"],
+    input[type="password"],
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .error-message {
+      color: red;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>物业人员登录</h1>
+    <% if (error) { %>
+      <p class="error-message">Invalid email or password. Please try again.</p>
+    <% } %>
+    <form action="/staff/login" method="POST">
+      <label for="email">邮箱:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="password">密码:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">登录</button>
+    </form>
+  </div>
+  <p>注:物业人员如果需要登录需要联系管理员进行认证以及注册账户才能访问</p>
+</body>
+</html>

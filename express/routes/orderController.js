@@ -1,5 +1,3 @@
-// routes/orderController.js
-
 const express = require('express');
 const pool = require('../config/db');
 
@@ -7,25 +5,21 @@ const router = express.Router();
 
 // 获取所有订单
 router.get('/', (req, res) => {
-  pool.query('SELECT * FROM orders', (err, results) => {
+  const username = req.query.username; // 获取前端传递的用户名参数
+  let query = 'SELECT * FROM orders';
+  let params = [];
+
+  if (username) {
+    query += ' WHERE username = ?'; // 根据用户名筛选订单
+    params.push(username);
+  }
+
+  pool.query(query, params, (err, results) => {
     if (err) {
       console.error('Error fetching orders:', err);
       res.status(500).json({ success: false, message: 'Error fetching orders' });
     } else {
       res.json(results);
-    }
-  });
-});
-
-// 设置订单完成
-router.put('/:orderId/complete', (req, res) => {
-  const orderId = req.params.orderId;
-  pool.query('UPDATE orders SET completed = 1 WHERE id = ?', orderId, (err, results) => {
-    if (err) {
-      console.error('Error completing order:', err);
-      res.status(500).json({ success: false, message: 'Error completing order' });
-    } else {
-      res.json({ success: true, message: 'Order completed successfully' });
     }
   });
 });

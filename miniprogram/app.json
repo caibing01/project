@@ -21,7 +21,8 @@
     "pages/news02/news02",
     "pages/news03/news03",
     "pages/news04/news04",
-    "pages/news05/news05"
+    "pages/news05/news05",
+    "pages/editusers/editusers"
   ],
   "window": {
     "enablePullDownRefresh": true,

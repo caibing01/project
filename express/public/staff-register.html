@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Personnel Registration</title>
+</head>
+<body>
+  <h2>Property Personnel Registration</h2>
+  <form id="registrationForm" action="/staff/register" method="post">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br>
+    <label for="phone">Phone:</label><br>
+    <input type="text" id="phone" name="phone" required><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+    <label for="address">Address:</label><br>
+    <textarea id="address" name="address" required></textarea><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+    <button type="submit">Register</button>
+  </form>
+  <div id="message"></div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const responseData = await fetch('/staff/register', {
+        method: 'POST',
+        body: formData
+      }).then(res => res.json());
+
+      document.getElementById('message').innerText = responseData.message;
+    });
+  </script>
+</body>
+</html>

@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>订单管理</title>
+  <title>报修单管理</title>
   <!-- 引入Bootstrap样式 -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="container">
-    <h1 class="text-center my-4">订单管理</h1>
+    <h1 class="text-center my-4">报修单管理</h1>
 
     <table class="table mt-4" id="ordersTable">
       <thead>
@@ -17,10 +17,10 @@
           <th>ID</th>
           <th>用户名</th>
           <th>日期时间</th>
-          <th>类别</th>
-          <th>员工</th>
+          <th>报修物品</th>
+          <th>物业人员</th>
           <th>提交时间</th>
-          <th>是否完成</th>
+          <th>报修单状态</th>
           <th>地址</th>
           <th>操作</th>
         </tr>
@@ -66,12 +66,12 @@
             ordersTableBody.appendChild(row);
           });
         })
-        .catch(error => console.error('获取订单时出错:', error));
+        .catch(error => console.error('获取报修单时出错:', error));
     }
 
     // 删除订单
     function deleteOrder(orderId) {
-      if (confirm("确定要删除该订单吗？")) {
+      if (confirm("确定要删除该报修单吗？")) {
         fetch(`/admin/orders/${orderId}`, {
           method: 'DELETE'
         })
@@ -80,27 +80,11 @@
             // 重新加载页面以反映更改
             fetchAndRenderOrders();
           } else {
-            console.error('删除订单失败');
+            console.error('删除报修单失败');
           }
         })
-        .catch(error => console.error('删除订单时出错:', error));
+        .catch(error => console.error('删除报修单时出错:', error));
       }
-    }
-
-    // 标记订单为已完成
-    function markCompleted(orderId) {
-      fetch(`/admin/orders/${orderId}/markCompleted`, {
-        method: 'POST'
-      })
-      .then(response => {
-        if (response.ok) {
-          // 重新加载页面以反映更改
-          fetchAndRenderOrders();
-        } else {
-          console.error('标记订单为已完成失败');
-        }
-      })
-      .catch(error => console.error('标记订单为已完成时出错:', error));
     }
 
     // 编辑订单
@@ -119,11 +103,11 @@
               const editForm = document.createElement('form');
               editForm.innerHTML = `
                 <div class="form-group">
-                  <label for="editCategory">类别：</label>
+                  <label for="editCategory">报修物品：</label>
                   <input type="text" class="form-control" id="editCategory" name="category" value="${order.category}">
                 </div>
                 <div class="form-group">
-                  <label for="editStaff">员工：</label>
+                  <label for="editStaff">物业人员：</label>
                   <select class="form-control" id="editStaff" name="staff">
                     ${staffOptions}
                   </select>
@@ -133,11 +117,8 @@
                   <input type="datetime-local" class="form-control" id="editDatetime" name="datetime" value="${order.datetime}">
                 </div>
                 <div class="form-group">
-                  <label for="editCompleted">是否完成：</label>
-                  <select class="form-control" id="editCompleted" name="completed">
-                    <option value="0" ${order.completed === 0 ? 'selected' : ''}>否</option>
-                    <option value="1" ${order.completed === 1 ? 'selected' : ''}>是</option>
-                  </select>
+                  <label for="editCompleted">报修单状态：</label>
+                  <input type="text" class="form-control" id="editCompleted" name="completed" value="${order.completed}">
                 </div>
                 <button type="button" onclick="updateOrder(${orderId})" class="btn btn-primary">保存</button>
               `;
@@ -151,9 +132,9 @@
               // 打开编辑模态框
               $('#editModal').modal('show');
             })
-            .catch(error => console.error('获取订单时出错:', error));
+            .catch(error => console.error('获取报修单时出错:', error));
         })
-        .catch(error => console.error('获取员工列表时出错:', error));
+        .catch(error => console.error('获取物业人员列表时出错:', error));
     }
 
     // 更新订单
@@ -189,7 +170,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">编辑订单信息</h5>
+          <h5 class="modal-title" id="exampleModalLabel">编辑报修单信息</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

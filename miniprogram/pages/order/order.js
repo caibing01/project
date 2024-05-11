@@ -52,7 +52,7 @@ Page({
     const staff = staffList[staffIndex];
     if (!username || !datetime || !category || !staff || !address) {
       wx.showToast({
-        title: '请填写完整订单信息',
+        title: '请填写完整报修单信息',
         icon: 'none'
       });
       return;
@@ -69,7 +69,7 @@ Page({
       },
       success: (res) => {
         wx.showToast({
-          title: '订单创建成功',
+          title: '报修单创建成功',
           icon: 'success',
           duration: 2000,
           complete: () => {
@@ -84,10 +84,15 @@ Page({
       fail: (err) => {
         console.error('Error creating order:', err);
         wx.showToast({
-          title: '订单创建失败，请重试',
+          title: '报修单创建失败，请重试',
           icon: 'none'
         });
       }
+    });
+  },
+  return:function(){
+    wx.switchTab({
+      url: '/pages/index/index'
     });
   }
 });

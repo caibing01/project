@@ -1,0 +1,59 @@
+<% function formatDateTime(dateString) { %>
+  <% const date = new Date(dateString); %>
+  <% const year = date.getFullYear(); %>
+  <% const month = ('0' + (date.getMonth() + 1)).slice(-2); %>
+  <% const day = ('0' + date.getDate()).slice(-2); %>
+  <% const hours = ('0' + date.getHours()).slice(-2); %>
+  <% const minutes = ('0' + date.getMinutes()).slice(-2); %>
+  <% const seconds = ('0' + date.getSeconds()).slice(-2); %>
+  <%= year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds %>
+<% } %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>评论</title>
+  <link rel="stylesheet" href="/css/style.css"> <!-- 引入样式文件 -->
+  <style>
+    /* 表格样式 */
+    table {
+      width: 80%;
+      margin: 20px auto; /* 居中 */
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">评论列表</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>用户</th>
+        <th>物业人员</th>
+        <th>评论内容</th>
+        <th>提交时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% comments.forEach(comment => { %>
+        <tr>
+          <td><%= comment.username %></td>
+          <td><%= comment.staff %></td>
+          <td><%= comment.comment %></td>
+          <td><%= formatDateTime(comment.submission_time) %></td> <!-- 调用格式化日期和时间函数 -->
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>

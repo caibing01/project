@@ -20,11 +20,11 @@ router.get('/staffs', (req, res) => {
 
 // 创建新的物业人员信息
 router.post('/staffs', (req, res) => {
-    const { name, phone, email, address } = req.body;
-    if (!name || !phone || !email || !address) {
+    const { name, phone, email, address,password } = req.body;
+    if (!name || !phone || !email || !address || !password) {
         return res.status(400).json({ error: 'Please provide all fields' });
     }
-    db.query('INSERT INTO proinfo (name, phone, email, address) VALUES (?, ?, ?, ?)', [name, phone, email, address], (err, result) => {
+    db.query('INSERT INTO proinfo (name, phone, email, address, password) VALUES (?, ?, ?, ?, ?)', [name, phone, email, address, password], (err, result) => {
         if (err) {
             console.error('Error creating staff:', err);
             res.status(500).json({ error: 'Error creating staff' });

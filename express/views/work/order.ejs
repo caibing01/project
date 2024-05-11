@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>报修单进度反馈</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #dddddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .input-container {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">报修单进度反馈</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>报修单编号</th>
+        <th>提交用户</th>
+        <th>报修物品</th>
+        <th>报修时间</th>
+        <th>用户地址</th>
+        <th>报修单状态</th>
+        <th>操作</th> <!-- 修改为操作列 -->
+      </tr>
+    </thead>
+    <tbody>
+      <% orders.forEach(order => { %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.username %></td>
+          <td><%= order.category %></td>
+          <td><%= order.submission_time %></td> <!-- 此处不需要 formatDate -->
+          <td><%= order.address %></td>
+          <td><%= order.completed %></td>
+          <td>
+            <!-- 编辑按钮 -->
+            <button onclick="showAlert()">编辑</button>
+            <!-- 输入框 -->
+            <div id="input-container-<%= order.id %>" class="input-container">
+              <form id="form-<%= order.id %>" action="/staff/orders/<%= order.id %>/update" method="POST">
+                <!-- 使用隐藏的 _method 字段来模拟 PUT 请求 -->
+                <input type="hidden" name="_method" value="PUT">
+                <input type="text" name="completed" placeholder="输入订单状态" required>
+                <button type="submit">保存</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <!-- 将 JavaScript 代码移动到 body 结尾 -->
+  <script>
+    function showAlert() {
+      alert("提示内容还在开发中！");
+    }
+  </script>
+</body>
+</html>

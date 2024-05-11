@@ -3,13 +3,19 @@
     <block wx:for="{{ orders }}" wx:key="id">
       <view class="order-item">
         <view class="order-details">
-          <text>订单号：{{ item.id }}</text>
-          <text>日期时间：{{ item.datetime }}</text>
-          <text>类目：{{ item.category }}</text>
-          <text>物业人员：{{ item.staff }}</text>
+          <text>订单号：{{ item.id }}
+          </text>
+          <text>提交时间：{{ item.datetime }}
+          </text>
+          <text>报修物品：{{ item.category }}
+          </text>
+          <text>物业人员：{{ item.staff }}
+          </text>
+          <text>报修单状态：{{ item.completed }}
+          </text>
         </view>
         <view class="order-actions">
-          <button class="btn-complete" bindtap="completeOrder" data-id="{{ item.id }}">完成</button>
+          <!-- <button class="btn-complete" bindtap="completeOrder" data-id="{{ item.id }}">完成</button> -->
           <button class="btn-delete" bindtap="deleteOrder" data-id="{{ item.id }}">删除</button>
         </view>
       </view>

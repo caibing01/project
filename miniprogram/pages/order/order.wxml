@@ -1,5 +1,5 @@
 <view class="con">
-  <view class="header">预约服务</view>
+  <view class="header">报修单提交</view>
   <!-- 显示用户名 -->
   <view class="username">用户名：{{username}}</view>
   <form bindsubmit="submitOrder">
@@ -10,8 +10,8 @@
       </picker>
     </view>
     <view class="form-item">
-      <view class="label">类别：</view>
-      <input type="text" placeholder="请输入类别" value="{{category}}" bindinput="inputCategory" />
+      <view class="label">报修物品：</view>
+      <input type="text" placeholder="请输入报修物品" value="{{category}}" bindinput="inputCategory" />
     </view>
     <view class="form-item">
       <view class="label">物业人员：</view>
@@ -26,6 +26,7 @@
     <button class="button" formType="submit">提交</button>
   </form>
 </view>
+<text bindtap="return">返回到主页</text>
 <view>
   <text space="emsp">注：地址格式可选：
     1.XxXXXX，表示几单元哪个房间号

@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 1050rpx;
+  height: 1045rpx;
 }
 .header {
   font-size: 20px;

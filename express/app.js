@@ -1,9 +1,11 @@
 // app.js
 
 const express = require('express');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser'); // 保留一个
 const cors = require('cors');
 const path = require('path');
+const session = require('express-session');
+
 const registerRoutes = require('./routes/register');
 const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
@@ -13,12 +15,16 @@ const staffRouter = require('./routes/staff');
 const ordersRouter = require('./routes/orders');
 const orderControllerRouter = require('./routes/orderController');
 const commentsRouter = require('./routes/comments');
-
 const adminRouter = require('./routes/admin'); 
 const adminUsersRouter = require('./routes/admin-users');
 const adminStaffRouter = require('./routes/admin-staff'); 
 const adminOrdersRouter = require('./routes/admin-orders');
 const adminCommentsRouter = require('./routes/admin-comments');
+
+const staffLoginRoutes = require('./routes/staff-login');
+const staffRegisterRouter = require('./routes/staff-register');
+const staffCommentRoutes = require('./routes/staff-comment');
+const staffOrderRoutes = require('./routes/staff-order');
 
 const app = express();
 app.use(cors());
@@ -26,6 +32,15 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// 设置模板引擎
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // 注册路由
 app.use('/register', registerRoutes);
@@ -58,6 +73,11 @@ app.use('/admin', adminStaffRouter);
 app.use('/admin', adminOrdersRouter);
 // 使用评论管理路由
 app.use('/admin', adminCommentsRouter); 
+
+app.use('/staff', staffLoginRoutes);
+app.use('/staff', staffRegisterRouter);
+app.use('/staff/comment', staffCommentRoutes);
+app.use('/staff', staffOrderRoutes);
 
 // 启动服务器
 const PORT = process.env.PORT || 3000;
