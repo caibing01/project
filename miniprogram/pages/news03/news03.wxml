@@ -1,2 +1,14 @@
-<!--pages/news03/news03.wxml-->
-<text>pages/news03/news03.wxml</text>
+<view class="text-style">物业人员招募</view>
+<view class="line"></view>
+<image src="https://www.jiangui.xyz/img/background.jpg" class="img">图片</image>
+<text space="emsp">     本小区招聘物业人员啦！
+  招聘条件：
+	  1.年龄18-45岁
+	  2.身体状况良好
+	  3.性别不限
+	  4.懂得基本水电报修流程操作
+	  5.要有耐心，两年工作经验
+	         
+	
+     刘氏物业欢迎您！
+</text>

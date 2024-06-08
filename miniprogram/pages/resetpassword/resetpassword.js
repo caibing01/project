@@ -1,12 +1,12 @@
 Page({
   data: {
-    email: '',
+    username: '',
     password: '',
     message: ''
   },
-  bindEmailInput: function(event) {
+  bindUsernameInput: function(event) { // 修正函数名以更符合变量名
     this.setData({
-      email: event.detail.value
+      username: event.detail.value
     });
   },
   bindPasswordInput: function(event) {
@@ -15,16 +15,10 @@ Page({
     });
   },
   resetPassword: function() {
-    const email = this.data.email;
+    const username = this.data.username;
     const password = this.data.password;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    if (!email || !password) {
-      wx.showToast({
-        title: '请输入邮箱和新密码',
-        icon: 'none'
-      });
-      return;
-    }
+
     if (!passwordRegex.test(password)) {
       wx.showToast({
         title: '密码至少包含一个字母和一个数字，且至少8个字符',
@@ -32,13 +26,14 @@ Page({
       });
       return;
     }
-    if (!email || !password) {
+    if (!username || !password) {
       wx.showToast({
-        title: '请输入邮箱和新密码',
+        title: '请输入用户名和新密码',
         icon: 'none'
       });
       return;
     }
+
     wx.request({
       url: 'http://localhost:3000/reset-password',
       method: 'POST',
@@ -46,22 +41,33 @@ Page({
         'Content-Type': 'application/json'
       },
       data: {
-        email: email,
+        username: username,
         password: password
       },
       success: (res) => {
-        wx.navigateTo({
-          url: '/pages/login/login',
-        })
-        console.log(res.data);
-        this.setData({
-          message: res.data.message
-        });
+        if (res.statusCode === 200) {
+          wx.showToast({
+            title: '密码重置成功',
+            icon: 'success'
+          });
+          wx.navigateTo({
+            url: '/pages/login/login',
+          });
+          this.setData({
+            message: res.data.message
+          });
+        } else {
+          wx.showToast({
+            title: '重置密码失败：' + res.data.message,
+            icon: 'none'
+          });
+        }
       },
       fail: (err) => {
         console.error('Failed to reset password:', err);
-        this.setData({
-          message: '重置密码失败'
+        wx.showToast({
+          title: '重置密码失败',
+          icon: 'none'
         });
       }
     });

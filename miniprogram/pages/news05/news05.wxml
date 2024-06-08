@@ -1,2 +1,9 @@
-<!--pages/news05/news05.wxml-->
-<text>pages/news05/news05.wxml</text>
+<view class="text-style">喜迎新年</view>
+<view class="line"></view>
+<image src="https://www.jiangui.xyz/img/background.jpg" class="img">图片</image>
+<text space="emsp">各位业主大家好：
+  新年到了，新年到了，新年到了，祝广大业主新年快乐！
+  
+
+       刘氏物业欢迎您！
+</text>

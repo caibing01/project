@@ -1,7 +1,7 @@
 Page({
   register: function (e) {
     const { username, phoneNumber, email, password, confirmPassword } = e.detail.value;
-    const phoneReg = /^1[0-9]{10}$/;
+    const phoneReg = /^1[0-9]{2}-[0-9]{3}-[0-9]{4}$/;
     if (!phoneReg.test(phoneNumber)) {
       wx.showToast({
         title: '手机号格式不正确',
@@ -48,9 +48,11 @@ Page({
             title: '注册成功',
             icon: 'success'
           });
-          wx.navigateTo({
-            url: '/pages/login/login'
-          });
+          wx.setTimeout(() => {
+            wx.navigateTo({
+              url: '/pages/login/login'
+            });
+          }, 3000);
         } else {
           wx.showToast({
             title: '注册失败：' + res.data.error,

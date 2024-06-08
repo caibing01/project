@@ -1,2 +1,9 @@
-<!--pages/news04/news04.wxml-->
-<text>pages/news04/news04.wxml</text>
+<view class="text-style">新年贺词</view>
+<view class="line"></view>
+<image src="https://www.jiangui.xyz/img/background.jpg" class="img">图片</image>
+<text space="emsp">各位业主大家好：
+  新年期间下单报修小程序，每户业主均可获取一次免费定制新年贺词的机会。
+  
+
+       刘氏物业欢迎您！
+</text>

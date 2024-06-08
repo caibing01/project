@@ -1,2 +1,8 @@
-<!--pages/active04/active04.wxml-->
-<text>pages/active04/active04.wxml</text>
+<view class="text-style">业主免费领口罩</view>
+<view class="line"></view>
+<image src="https://www.jiangui.xyz/img/background.jpg" class="img">图片</image>
+<text space="emsp">  本小区新老业主过年期间每户业主免费领一次口罩，一次一包。
+  
+	
+	     刘氏物业欢迎您！
+</text>

@@ -7,17 +7,17 @@ const db = require('../config/db');
 router.use(methodOverride('_method'));
 
 // 更新订单状态路由
-router.post('/:orderId/update', (req, res) => {
+router.put('/orders/:orderId/update', (req, res) => {
   const orderId = req.params.orderId;
-  const completed = req.body.completed; // 获取从表单中提交的订单状态
+  const completed = req.body.completed;
 
   // 更新订单状态
   db.query('UPDATE orders SET completed = ? WHERE id = ?', [completed, orderId], (err, result) => {
     if (err) {
       console.error('Error updating order:', err);
-      res.status(500).send('Internal Server Error');
+      res.status(500).json({ error: 'Internal Server Error' });
     } else {
-      res.redirect('/staff/orders');
+      res.status(200).json({ message: 'Order updated successfully' });
     }
   });
 });

@@ -1,10 +1,11 @@
 Page({
   login: function (e) {
-    const { email, password } = e.detail.value;
+    const { username, email, password } = e.detail.value;
     wx.request({
       url: 'http://localhost:3000/login',
       method: 'POST',
       data: {
+        username:username,
         email: email,
         password: password
       },
@@ -17,9 +18,11 @@ Page({
           wx.setStorageSync('userInfo', {
             email: email,
           });
-          wx.navigateTo({
-            url: '/pages/order/order'
-          });
+          wx.setTimeout(() => {
+            wx.navigateTo({
+              url: '/pages/order/order'
+            });
+          }, 5000);
         } else {
           wx.showToast({
             title: '登录失败：' + res.data.error,

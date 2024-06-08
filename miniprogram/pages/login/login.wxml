@@ -1,6 +1,10 @@
 <view class="con">
   <form bindsubmit="login" class="form">
     <view class="form-item">
+      <text class="label">用户名：</text>
+      <input type="text" name="username" placeholder="请输入用户名" />
+    </view>
+    <view class="form-item">
       <text class="label">邮箱：</text>
       <input type="text" name="email" placeholder="请输入邮箱" />
     </view>

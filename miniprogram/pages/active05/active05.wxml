@@ -1,2 +1,8 @@
-<!--pages/active05/active05.wxml-->
-<text>pages/active05/active05.wxml</text>
+<view class="text-style">领鸡蛋</view>
+<view class="line"></view>
+<image src="https://www.jiangui.xyz/img/background.jpg" class="img">图片</image>
+<text space="emsp">  本小区新老业主过年期间每户业主免费领一次鸡蛋，一次一盒。
+  
+	
+	     刘氏物业欢迎您！
+</text>

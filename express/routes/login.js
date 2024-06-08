@@ -5,10 +5,10 @@ const connection = require('../config/db');
 
 // 登录接口，验证邮箱和密码是否正确
 router.post('/', (req, res) => {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
   // 查询数据库验证邮箱和密码是否匹配
-  connection.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
+  connection.query('SELECT * FROM users WHERE email = ? AND username = ?', [email, username], (error, results) => {
     if (error) {
       res.status(500).json({ error: 'Internal server error' });
     } else {

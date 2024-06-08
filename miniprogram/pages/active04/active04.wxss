@@ -10,3 +10,12 @@
   height:5rpx;
   background:#aaa;
 }
+.img{
+	margin-top: 10rpx;
+	margin-bottom: 30rpx;
+	height: 500rpx;
+	width: 100%;
+}
+text{
+  font-size: 20px;
+}

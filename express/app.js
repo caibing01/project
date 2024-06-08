@@ -1,6 +1,7 @@
 // app.js
 
 const express = require('express');
+const methodOverride = require('method-override');
 const bodyParser = require('body-parser'); // 保留一个
 const cors = require('cors');
 const path = require('path');
@@ -22,12 +23,12 @@ const adminOrdersRouter = require('./routes/admin-orders');
 const adminCommentsRouter = require('./routes/admin-comments');
 
 const staffLoginRoutes = require('./routes/staff-login');
-const staffRegisterRouter = require('./routes/staff-register');
 const staffCommentRoutes = require('./routes/staff-comment');
 const staffOrderRoutes = require('./routes/staff-order');
 
 const app = express();
 app.use(cors());
+app.use(methodOverride('_method'));
 // 允许解析请求体中的 JSON 数据
 app.use(express.json());
 app.use(bodyParser.json());
@@ -75,7 +76,6 @@ app.use('/admin', adminOrdersRouter);
 app.use('/admin', adminCommentsRouter); 
 
 app.use('/staff', staffLoginRoutes);
-app.use('/staff', staffRegisterRouter);
 app.use('/staff/comment', staffCommentRoutes);
 app.use('/staff', staffOrderRoutes);
 
